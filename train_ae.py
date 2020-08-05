@@ -21,10 +21,10 @@ def setup_args():
 
     options.add_argument('--save-dir', action="store", dest="save_dir")
     options.add_argument('-pt', action="store", dest="pretrained_file", default=None)
-    options.add_argument('-bs', action="store", dest="batch_size", default = 1024, type = int)
+    options.add_argument('-bs', action="store", dest="batch_size", default = 128, type = int)
     options.add_argument('-ds', action="store", dest="datadir", default = "data/nuclear_crops_all_experiments/")
  
-    options.add_argument('-iter', action="store", dest="max_iter", default = 200, type = int)
+    options.add_argument('-iter', action="store", dest="max_iter", default = 800, type = int)
     options.add_argument('-lr', action="store", dest="lr", default=1e-3, type = float)
     options.add_argument('-nz', action="store", dest="nz", default=128, type = int)
     options.add_argument('-lamb', action="store", dest="lamb", default=0.0000001, type = float)
@@ -42,7 +42,7 @@ with open(os.path.join(args.save_dir, "log.txt"), 'w') as f:
 trainset = NucleiDataset(datadir=args.datadir, mode='train')
 testset = NucleiDataset(datadir=args.datadir, mode='test')
 
-train_loader = DataLoader(trainset, batch_size=args.batch_size, drop_last=True, shuffle=True)
+train_loader = DataLoader(trainset, batch_size=args.batch_size, drop_last=False, shuffle=True)
 test_loader = DataLoader(testset, batch_size=args.batch_size, drop_last=False, shuffle=False)
 
 print('Data loaded')
@@ -99,7 +99,7 @@ def train(epoch):
         optimizer.zero_grad()
         recon_inputs, latents, mu, logvar = model(inputs)
         loss = loss_function(recon_inputs, inputs, mu, logvar, latents)
-        train_loss += loss.data.item()
+        train_loss += loss.data.item() * inputs.size(0)
         
         if args.conditional:
             targets = Variable(samples['binary_label'])
@@ -133,7 +133,7 @@ def test(epoch):
         recon_inputs, latents, mu, logvar = model(inputs)
         
         loss = loss_function(recon_inputs, inputs, mu, logvar, latents)
-        test_loss += loss.data.item()
+        test_loss += loss.data.item() * inputs.size(0)
         
         if args.conditional:
             targets = Variable(samples['binary_label'])

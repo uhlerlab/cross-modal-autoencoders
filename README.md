@@ -4,7 +4,7 @@ This is the accompanying code for the paper, "Multi-Domain Translation between S
 
 The preprocessing scripts for the raw data files can be found at this repo ([link](https://github.com/SaradhaVenkatachalapathy/Radial_chromatin_packing_immune_cells)).
 
-The preprocessed data files can be downloaded from Google Drive ([link](https://drive.google.com/file/d/1B7PFrGnosx-Cono9x8G0DCkNuK4UFw1X/view?usp=sharing)).
+The preprocessed data files can be downloaded from Dropbox ([link](https://www.dropbox.com/sh/hjt57go4dyahgq7/AAAhAE8bHNn5Sq-D0jGkO_gAa?dl=0)).
 
 
 ## 1. Installation instructions

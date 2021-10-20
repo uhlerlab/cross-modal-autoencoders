@@ -1,4 +1,4 @@
-name: multimodal-integrate
+name: pytorch
 channels:
   - pytorch
   - defaults

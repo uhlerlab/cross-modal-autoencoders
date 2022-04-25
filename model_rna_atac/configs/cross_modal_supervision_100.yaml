@@ -1,0 +1,46 @@
+# Model config.
+# This code is based on https://github.com/NVlabs/MUNIT.
+#
+# logger options
+snapshot_save_iter: 250       # How often do you want to save trained models (now in epochs)
+log_iter: 100                  # How often do you want to log the training stats (now in epochs)
+
+
+# optimization options
+max_iter: 4000                # maximum number of training iterations
+batch_size: 32                # batch size
+log_data :  True             # take a log1p of the data
+normalize_data: True         # normalize the data (after the log, if applicable)
+weight_decay: 0.0001          # weight decay
+beta1: 0.5                    # Adam parameter
+beta2: 0.999                  # Adam parameter
+init: kaiming                 # initialization [gaussian/kaiming/xavier/orthogonal]
+lr: 0.0001                    # initial learning rate
+lr_policy: step               # learning rate scheduler
+step_size: 100000             # how often to decay learning rate
+gamma: 0.5                    # how much to decay learning rate
+gan_w: 10                      # weight of adversarial loss
+recon_x_w: 10                 # weight of image reconstruction loss
+recon_h_w: 0                  # weight of hidden reconstruction loss
+recon_kl_w: 0                 # weight of KL loss for reconstruction
+
+
+supervise: 1                 # fraction to supervise
+super_w: 0.1                 # weight of supervision loss
+
+# model options
+
+shared_layer: True
+gen:
+  dim: 100                    # hidden layer
+  latent: 50                 # latent layer size
+  activ: relu                 # activation function [relu/lrelu/prelu/selu/tanh]
+dis:
+  dim: 100                    # number of filters in the bottommost layer
+  norm: none                  # normalization layer [none/bn/in/ln]
+  activ: lrelu                # activation function [relu/lrelu/prelu/selu/tanh]
+  gan_type: lsgan             # GAN loss [lsgan/nsgan]
+
+# data options
+input_dim_a: 815                           # input dim of a
+input_dim_b: 2613                           # input dim of b
